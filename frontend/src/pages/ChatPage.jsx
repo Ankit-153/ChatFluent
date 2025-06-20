@@ -98,7 +98,7 @@ const ChatPage = () => {
     <div className="h-[91vh] flex justify-center">
       <Chat client={chatClient}>
         <Channel channel={channel}>
-          <div className="w-[80vw] relative">
+          <div className="w-full sm:w-[80vw] relative">
             <CallButton handleVideoCall={handleVideoCall} />
             <Window>
               <ChannelHeader />
