@@ -42,7 +42,7 @@ const ChatPage = () => {
 
       try {
         console.log("Initializing stream chat client...");
-        // console.log(STREAM_API_KEY);
+
         const client = StreamChat.getInstance(STREAM_API_KEY);
 
         await client.connectUser(
@@ -95,10 +95,10 @@ const ChatPage = () => {
   if (loading || !chatClient || !channel) return <ChatLoader />;
 
   return (
-    <div className="h-[93vh]">
+    <div className="h-[91vh] flex justify-center">
       <Chat client={chatClient}>
         <Channel channel={channel}>
-          <div className="w-full relative">
+          <div className="w-[80vw] relative">
             <CallButton handleVideoCall={handleVideoCall} />
             <Window>
               <ChannelHeader />

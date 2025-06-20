@@ -1,0 +1,78 @@
+# Dependencies
+node_modules/
+*/node_modules/
+package-lock.json
+*/package-lock.json
+yarn.lock
+*/yarn.lock
+pnpm-lock.yaml
+*/pnpm-lock.yaml
+
+# Environment variables
+.env
+*/.env
+.env.*
+*/.env.*
+!.env.example
+*/.env.example
+
+# Build directories
+dist/
+*/dist/
+build/
+*/build/
+dist-ssr/
+*/dist-ssr/
+out/
+*/out/
+
+# Logs
+logs/
+*/logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Testing
+coverage/
+*/coverage/
+.nyc_output/
+*/.nyc_output/
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+*.sublime-project
+*.sublime-workspace
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+ehthumbs.db
+$RECYCLE.BIN/
+
+# Temporary files
+*.tmp
+*.temp
+.cache/
+*/.cache/
+.temp/
+*/.temp/
+
+# Debug files
+.debug/
+*/.debug/
+
+# Local files
+*.local
