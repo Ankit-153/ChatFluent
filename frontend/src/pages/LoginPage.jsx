@@ -1,33 +1,19 @@
 import { useState } from "react";
-import { ShipWheelIcon } from "lucide-react";
+import { ShipWheelIcon ,Eye,EyeOff} from "lucide-react";
 import { Link } from "react-router";
 import useLogin from "../hooks/useLogin";
-
 const LoginPage = () => {
   const [loginData, setLoginData] = useState({
     email: "",
     password: "",
   });
-
-  // This is how we did it at first, without using our custom hook
-  // const queryClient = useQueryClient();
-  // const {
-  //   mutate: loginMutation,
-  //   isPending,
-  //   error,
-  // } = useMutation({
-  //   mutationFn: login,
-  //   onSuccess: () => queryClient.invalidateQueries({ queryKey: ["authUser"] }),
-  // });
-
+const [showPassword, setShowPassword] = useState(false);
   // This is how we did it using our custom hook - optimized version
   const { isPending, error, loginMutation } = useLogin();
-
   const handleLogin = (e) => {
     e.preventDefault();
     loginMutation(loginData);
   };
-
   return (
     <div
       className="h-screen flex items-center justify-center p-4 sm:p-6 md:p-8"
@@ -43,14 +29,12 @@ const LoginPage = () => {
               ChatFluent
             </span>
           </div>
-
           {/* ERROR MESSAGE DISPLAY */}
           {error && (
             <div className="alert alert-error mb-4">
               <span>{error.response.data.message}</span>
             </div>
           )}
-
           <div className="w-full">
             <form onSubmit={handleLogin}>
               <div className="space-y-4">
@@ -60,7 +44,6 @@ const LoginPage = () => {
                     Sign in to your account to continue your language journey
                   </p>
                 </div>
-
                 <div className="flex flex-col gap-3">
                   <div className="form-control w-full space-y-2">
                     <label className="label">
@@ -75,21 +58,29 @@ const LoginPage = () => {
                       required
                     />
                   </div>
-
                   <div className="form-control w-full space-y-2">
                     <label className="label">
                       <span className="label-text">Password</span>
                     </label>
                     <input
-                      type="password"
+                      type= {showPassword ?"text":"password"}
                       placeholder="••••••••"
                       className="input input-bordered w-full"
                       value={loginData.password}
                       onChange={(e) => setLoginData({ ...loginData, password: e.target.value })}
                       required
                     />
+                    <button 
+                        type="button"
+                        className="absolute inset-y-0 right-0 pr-3 flex items-center text-sm leading-5"
+                        onClick={() => setShowPassword(!showPassword)}
+                      >
+                        {showPassword ? 
+                          <EyeOff className="h-5 w-5 text-gray-500" /> : 
+                          <Eye className="h-5 w-5 text-gray-500" />
+                        }
+                      </button>
                   </div>
-
                   <button type="submit" className="btn btn-primary w-full" disabled={isPending}>
                     {isPending ? (
                       <>
