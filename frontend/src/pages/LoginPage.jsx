@@ -1,19 +1,23 @@
 import { useState } from "react";
-import { ShipWheelIcon ,Eye,EyeOff} from "lucide-react";
-import { Link } from "react-router";
+import { ShipWheelIcon, Eye, EyeOff } from "lucide-react";
+import { Link } from "react-router"; 
 import useLogin from "../hooks/useLogin";
+
 const LoginPage = () => {
   const [loginData, setLoginData] = useState({
     email: "",
     password: "",
   });
-const [showPassword, setShowPassword] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+  
   // This is how we did it using our custom hook - optimized version
   const { isPending, error, loginMutation } = useLogin();
+  
   const handleLogin = (e) => {
     e.preventDefault();
     loginMutation(loginData);
   };
+  
   return (
     <div
       className="h-screen flex items-center justify-center p-4 sm:p-6 md:p-8"
@@ -25,7 +29,7 @@ const [showPassword, setShowPassword] = useState(false);
           {/* LOGO */}
           <div className="mb-4 flex items-center justify-start gap-2">
             <ShipWheelIcon className="size-9 text-primary" />
-            <span className="text-3xl font-bold font-mono bg-clip-text text-transparent bg-gradient-to-r from-primary to-secondary  tracking-wider">
+            <span className="text-3xl font-bold font-mono bg-clip-text text-transparent bg-gradient-to-r from-primary to-secondary tracking-wider">
               ChatFluent
             </span>
           </div>
@@ -62,15 +66,16 @@ const [showPassword, setShowPassword] = useState(false);
                     <label className="label">
                       <span className="label-text">Password</span>
                     </label>
-                    <input
-                      type= {showPassword ?"text":"password"}
-                      placeholder="••••••••"
-                      className="input input-bordered w-full"
-                      value={loginData.password}
-                      onChange={(e) => setLoginData({ ...loginData, password: e.target.value })}
-                      required
-                    />
-                    <button 
+                    <div className="relative"> {/* Added relative container */}
+                      <input
+                        type={showPassword ? "text" : "password"}
+                        placeholder="••••••••"
+                        className="input input-bordered w-full pr-10" /* Added right padding */
+                        value={loginData.password}
+                        onChange={(e) => setLoginData({ ...loginData, password: e.target.value })}
+                        required
+                      />
+                      <button 
                         type="button"
                         className="absolute inset-y-0 right-0 pr-3 flex items-center text-sm leading-5"
                         onClick={() => setShowPassword(!showPassword)}
@@ -80,6 +85,7 @@ const [showPassword, setShowPassword] = useState(false);
                           <Eye className="h-5 w-5 text-gray-500" />
                         }
                       </button>
+                    </div>
                   </div>
                   <button type="submit" className="btn btn-primary w-full" disabled={isPending}>
                     {isPending ? (
@@ -126,4 +132,5 @@ const [showPassword, setShowPassword] = useState(false);
     </div>
   );
 };
+
 export default LoginPage;
