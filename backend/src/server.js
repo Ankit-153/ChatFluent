@@ -25,6 +25,12 @@ app.use(
 app.use(express.json());
 app.use(cookieParser());
 
+app.use((req, res, next) => {
+console.log(`[${new Date().toISOString()}] ${req.ip} - ${req.method} ${req.url}`);
+next();
+});
+
+
 app.use("/api/auth", authRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/chat", chatRoutes);
