@@ -87,12 +87,12 @@ const HomePage = () => {
                 return (
                   <div
                     key={user._id}
-                    className="card bg-base-200 hover:shadow-lg transition-all duration-300"
+                    className="card bg-base-200 hover:shadow-lg transition-all duration-300 border border-base-300"
                   >
-                    <div className="card-body p-5 space-y-4">
+                    <div className="card-body p-5 space-y-4 bg-base-200">
                       <div className="flex items-center gap-3">
                         <div className="avatar size-16 rounded-full">
-                          <img src={user.profilePic} alt={user.fullName} />
+                          <img src={user.profilePic} alt={user.fullName} className="rounded-full" />
                         </div>
 
                         <div>
@@ -123,9 +123,11 @@ const HomePage = () => {
                       {/* Action button */}
                       <button
                         className={`btn w-full mt-2 ${
-                          hasRequestBeenSent ? "btn-disabled" : "btn-primary"
+                          hasRequestBeenSent 
+                            ? "btn-disabled bg-base-300 text-base-content border-base-300" 
+                            : "btn-primary"
                         } `}
-                        onClick={() => sendRequestMutation(user._id)}
+                        onClick={() => !hasRequestBeenSent && sendRequestMutation(user._id)}
                         disabled={hasRequestBeenSent || isPending}
                       >
                         {hasRequestBeenSent ? (
