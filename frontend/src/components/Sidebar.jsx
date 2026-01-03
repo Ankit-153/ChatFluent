@@ -1,13 +1,27 @@
 import { Link, useLocation } from "react-router";
 import useAuthUser from "../hooks/useAuthUser";
 import { BellIcon, HomeIcon, ShipWheelIcon, UsersIcon, MenuIcon, XIcon } from "lucide-react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const Sidebar = () => {
   const { authUser } = useAuthUser();
   const location = useLocation();
   const currentPath = location.pathname;
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isOnline, setIsOnline] = useState(navigator.onLine);
+
+  useEffect(() => {
+    const handleOnline = () => setIsOnline(true);
+    const handleOffline = () => setIsOnline(false);
+
+    window.addEventListener("online", handleOnline);
+    window.addEventListener("offline", handleOffline);
+
+    return () => {
+      window.removeEventListener("online", handleOnline);
+      window.removeEventListener("offline", handleOffline);
+    };
+  }, []);
 
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
@@ -109,9 +123,9 @@ const Sidebar = () => {
             </div>
             <div className="flex-1">
               <p className="font-semibold text-sm">{authUser?.fullName}</p>
-              <p className="text-xs text-success flex items-center gap-1">
-                <span className="size-2 rounded-full bg-success inline-block" />
-                Online
+              <p className={`text-xs flex items-center gap-1 ${isOnline ? "text-success" : "text-base-content/50"}`}>
+                <span className={`size-2 rounded-full inline-block ${isOnline ? "bg-success" : "bg-base-content/50"}`} />
+                {isOnline ? "Online" : "Offline"}
               </p>
             </div>
           </div>
