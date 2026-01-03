@@ -51,10 +51,9 @@ const HomePage = () => {
   return (
     <div className="bg-base-100  p-4 sm:p-6 lg:p-8">
       <div className="container mx-auto space-y-10">
-
         <section>
           <div className="mb-6 sm:mb-8">
-            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 ">
               <div>
                 <h2 className="text-2xl sm:text-3xl font-bold tracking-tight">Meet New Learners</h2>
                 <p className="opacity-70">
