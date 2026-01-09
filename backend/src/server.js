@@ -7,6 +7,7 @@ import path from "path";
 import authRoutes from "./routes/auth.routes.js";
 import userRoutes from "./routes/user.routes.js";
 import chatRoutes from "./routes/chat.routes.js";
+import vocabularyRoutes from "./routes/vocabulary.routes.js";
 
 import { connectDB } from "./lib/db.js";
 
@@ -34,6 +35,7 @@ next();
 app.use("/api/auth", authRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/chat", chatRoutes);
+app.use("/api/vocabulary", vocabularyRoutes);
 
 if (process.env.NODE_ENV === "production") {
   app.use(express.static(path.join(__dirname, "../frontend/dist")));

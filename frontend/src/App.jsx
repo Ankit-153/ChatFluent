@@ -15,8 +15,10 @@ import useAuthUser from "./hooks/useAuthUser.js";
 import Layout from "./components/Layout.jsx";
 import { useThemeStore } from "./store/useThemeStore.js";
 import Friends from "./pages/Friends.jsx";
+import VocabularyPage from "./pages/VocabularyPage.jsx";
 
 const App = () => {
+
   const { isLoading, authUser } = useAuthUser();
   const { theme } = useThemeStore();
 
@@ -80,8 +82,22 @@ const App = () => {
         />
 
         <Route
+          path="/vocabulary"
+          element={
+            isAuthenticated && isOnboarded ? (
+              <Layout showSidebar={true}>
+                <VocabularyPage />
+              </Layout>
+            ) : (
+              <Navigate to={!isAuthenticated ? "/login" : "/onboarding"} />
+            )
+          }
+        />
+
+        <Route
           path="/call/:id"
           element={
+
             isAuthenticated && isOnboarded ? (
               <CallPage />
             ) : (
