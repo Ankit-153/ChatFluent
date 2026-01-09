@@ -11,6 +11,7 @@ import {
   addWordToSharedList,
   deleteWordFromSharedList,
   getUserFriends,
+  generateWordDetails,
 } from "../lib/api";
 import {
   UsersIcon,
@@ -21,6 +22,7 @@ import {
   ArrowLeftIcon,
   UserPlusIcon,
   XIcon,
+  SparklesIcon,
 } from "lucide-react";
 import toast from "react-hot-toast";
 
@@ -34,6 +36,7 @@ const SharedListsPage = () => {
   const [listToShare, setListToShare] = useState(null);
   const [newListData, setNewListData] = useState({ name: "", description: "" });
   const [newWord, setNewWord] = useState({ word: "", translation: "", example: "", language: "" });
+  const [isAILoading, setIsAILoading] = useState(false);
 
   // Queries
   const { data: myLists = [], isLoading: loadingMyLists } = useQuery({
@@ -136,6 +139,29 @@ const SharedListsPage = () => {
       return;
     }
     addWordMutation.mutate({ listId: selectedList, ...newWord });
+  };
+
+  const handleAIFetch = async () => {
+    if (!newWord.word.trim()) {
+      toast.error("Please enter a word first");
+      return;
+    }
+
+    setIsAILoading(true);
+    try {
+      const aiData = await generateWordDetails(newWord.word.trim());
+      setNewWord((prev) => ({
+        ...prev,
+        translation: aiData.translation || prev.translation,
+        example: aiData.example || prev.example,
+        language: aiData.language || prev.language,
+      }));
+      toast.success("AI filled the details!");
+    } catch (error) {
+      toast.error(error.response?.data?.message || "Failed to fetch AI suggestions");
+    } finally {
+      setIsAILoading(false);
+    }
   };
 
   const availableFriendsToShare = friends.filter(
@@ -358,13 +384,34 @@ const SharedListsPage = () => {
                   <label className="label">
                     <span className="label-text">Word / Phrase</span>
                   </label>
-                  <input
-                    type="text"
-                    placeholder="e.g. Hola"
-                    className="input input-bordered w-full"
-                    value={newWord.word}
-                    onChange={(e) => setNewWord({ ...newWord, word: e.target.value })}
-                  />
+                  <div className="flex gap-2">
+                    <input
+                      type="text"
+                      placeholder="e.g. Hola"
+                      className="input input-bordered flex-1"
+                      value={newWord.word}
+                      onChange={(e) => setNewWord({ ...newWord, word: e.target.value })}
+                    />
+                    <button
+                      type="button"
+                      onClick={handleAIFetch}
+                      disabled={isAILoading || !newWord.word.trim()}
+                      className="btn btn-secondary gap-2"
+                      title="Auto-fill with AI"
+                    >
+                      {isAILoading ? (
+                        <span className="loading loading-spinner loading-sm" />
+                      ) : (
+                        <SparklesIcon className="w-4 h-4" />
+                      )}
+                      <span className="hidden sm:inline">AI Fill</span>
+                    </button>
+                  </div>
+                  <label className="label">
+                    <span className="label-text-alt text-base-content/50">
+                      Enter a word and click AI Fill to auto-generate details
+                    </span>
+                  </label>
                 </div>
                 <div className="form-control">
                   <label className="label">
