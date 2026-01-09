@@ -1,7 +1,8 @@
 import { Link, useLocation } from "react-router";
 import useAuthUser from "../hooks/useAuthUser";
-import { BellIcon, HomeIcon, ShipWheelIcon, UsersIcon, MenuIcon, XIcon } from "lucide-react";
+import { BellIcon, HomeIcon, ShipWheelIcon, UsersIcon, MenuIcon, XIcon, BookOpenIcon } from "lucide-react";
 import { useState, useEffect } from "react";
+
 
 const Sidebar = () => {
   const { authUser } = useAuthUser();
@@ -111,7 +112,19 @@ const Sidebar = () => {
             <BellIcon className="size-5 text-base-content opacity-70" />
             <span>Notifications</span>
           </Link>
+
+          <Link
+            to="/vocabulary"
+            onClick={closeMobileMenu}
+            className={`btn btn-ghost justify-start w-full gap-3 px-3 normal-case ${
+              currentPath === "/vocabulary" ? "btn-active" : ""
+            }`}
+          >
+            <BookOpenIcon className="size-5 text-base-content opacity-70" />
+            <span>Notebook</span>
+          </Link>
         </nav>
+
 
         {/* User Profile Section */}
         <div className="p-4 border-t border-base-300 mt-auto">

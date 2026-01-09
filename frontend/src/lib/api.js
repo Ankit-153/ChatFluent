@@ -49,6 +49,27 @@ export async function sendFriendRequest(userId) {
   return response.data;
 }
 
+export const getStreamToken = async () => {
+    const response = await axiosInstance.get("/chat/token");
+    return response.data;
+};
+
+export const getVocabulary = async () => {
+    const response = await axiosInstance.get("/vocabulary");
+    return response.data;
+};
+
+export const addVocabulary = async (vocabData) => {
+    const response = await axiosInstance.post("/vocabulary", vocabData);
+    return response.data;
+};
+
+export const deleteVocabulary = async (id) => {
+  const response = await axiosInstance.delete(`/vocabulary/${id}`);
+  return response.data;
+};
+
+
 export async function getFriendRequests() {
   const response = await axiosInstance.get("/users/friend-requests");
   return response.data;
@@ -56,10 +77,5 @@ export async function getFriendRequests() {
 
 export async function acceptFriendRequest(requestId) {
   const response = await axiosInstance.put(`/users/friend-request/${requestId}/accept`);
-  return response.data;
-}
-
-export async function getStreamToken() {
-  const response = await axiosInstance.get("/chat/token");
   return response.data;
 }
