@@ -54,8 +54,8 @@ export const getStreamToken = async () => {
     return response.data;
 };
 
-export const getVocabulary = async () => {
-    const response = await axiosInstance.get("/vocabulary");
+export const getVocabulary = async (params) => {
+    const response = await axiosInstance.get("/vocabulary", { params });
     return response.data;
 };
 
@@ -66,6 +66,68 @@ export const addVocabulary = async (vocabData) => {
 
 export const deleteVocabulary = async (id) => {
   const response = await axiosInstance.delete(`/vocabulary/${id}`);
+  return response.data;
+};
+
+export const updateVocabulary = async ({ id, ...vocabData }) => {
+  const response = await axiosInstance.put(`/vocabulary/${id}`, vocabData);
+  return response.data;
+};
+
+export const exportVocabulary = async () => {
+  const response = await axiosInstance.get("/vocabulary/export");
+  return response.data;
+};
+
+// AI API
+export const generateWordDetails = async (word, targetLanguage) => {
+  const response = await axiosInstance.post("/ai/word-details", { word, targetLanguage });
+  return response.data;
+};
+
+// Shared Lists API
+export const createSharedList = async (listData) => {
+  const response = await axiosInstance.post("/shared-lists", listData);
+  return response.data;
+};
+
+export const getMySharedLists = async () => {
+  const response = await axiosInstance.get("/shared-lists/my-lists");
+  return response.data;
+};
+
+export const getSharedWithMe = async () => {
+  const response = await axiosInstance.get("/shared-lists/shared-with-me");
+  return response.data;
+};
+
+export const getSharedList = async (id) => {
+  const response = await axiosInstance.get(`/shared-lists/${id}`);
+  return response.data;
+};
+
+export const addCollaborator = async ({ listId, friendId }) => {
+  const response = await axiosInstance.post(`/shared-lists/${listId}/collaborator`, { friendId });
+  return response.data;
+};
+
+export const removeCollaborator = async ({ listId, friendId }) => {
+  const response = await axiosInstance.delete(`/shared-lists/${listId}/collaborator/${friendId}`);
+  return response.data;
+};
+
+export const addWordToSharedList = async ({ listId, ...wordData }) => {
+  const response = await axiosInstance.post(`/shared-lists/${listId}/word`, wordData);
+  return response.data;
+};
+
+export const deleteWordFromSharedList = async ({ listId, wordId }) => {
+  const response = await axiosInstance.delete(`/shared-lists/${listId}/word/${wordId}`);
+  return response.data;
+};
+
+export const deleteSharedList = async (id) => {
+  const response = await axiosInstance.delete(`/shared-lists/${id}`);
   return response.data;
 };
 
