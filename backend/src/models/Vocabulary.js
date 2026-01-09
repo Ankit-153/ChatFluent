@@ -29,6 +29,9 @@ const vocabularySchema = new mongoose.Schema(
   }
 );
 
+// Compound index: Partition by userId first, then text search
+vocabularySchema.index({ userId: 1, word: "text", translation: "text" });
+
 const Vocabulary = mongoose.model("Vocabulary", vocabularySchema);
 
 export default Vocabulary;

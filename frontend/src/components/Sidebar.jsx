@@ -1,6 +1,6 @@
 import { Link, useLocation } from "react-router";
 import useAuthUser from "../hooks/useAuthUser";
-import { BellIcon, HomeIcon, ShipWheelIcon, UsersIcon, MenuIcon, XIcon, BookOpenIcon } from "lucide-react";
+import { BellIcon, HomeIcon, ShipWheelIcon, UsersIcon, MenuIcon, XIcon, BookOpenIcon, Share2Icon } from "lucide-react";
 import { useState, useEffect } from "react";
 
 
@@ -122,6 +122,17 @@ const Sidebar = () => {
           >
             <BookOpenIcon className="size-5 text-base-content opacity-70" />
             <span>Notebook</span>
+          </Link>
+
+          <Link
+            to="/shared-lists"
+            onClick={closeMobileMenu}
+            className={`btn btn-ghost justify-start w-full gap-3 px-3 normal-case ${
+              currentPath === "/shared-lists" ? "btn-active" : ""
+            }`}
+          >
+            <Share2Icon className="size-5 text-base-content opacity-70" />
+            <span>Shared Lists</span>
           </Link>
         </nav>
 

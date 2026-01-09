@@ -16,6 +16,7 @@ import Layout from "./components/Layout.jsx";
 import { useThemeStore } from "./store/useThemeStore.js";
 import Friends from "./pages/Friends.jsx";
 import VocabularyPage from "./pages/VocabularyPage.jsx";
+import SharedListsPage from "./pages/SharedListsPage.jsx";
 
 const App = () => {
 
@@ -87,6 +88,19 @@ const App = () => {
             isAuthenticated && isOnboarded ? (
               <Layout showSidebar={true}>
                 <VocabularyPage />
+              </Layout>
+            ) : (
+              <Navigate to={!isAuthenticated ? "/login" : "/onboarding"} />
+            )
+          }
+        />
+
+        <Route
+          path="/shared-lists"
+          element={
+            isAuthenticated && isOnboarded ? (
+              <Layout showSidebar={true}>
+                <SharedListsPage />
               </Layout>
             ) : (
               <Navigate to={!isAuthenticated ? "/login" : "/onboarding"} />
