@@ -60,7 +60,7 @@ const VocabularyPage = () => {
   );
 
   return (
-    <div className="p-4 sm:p-6 lg:p-8 h-full">
+    <div className="p-4 sm:p-6 lg:p-8 h-full bg-base-100">
       <div className="max-w-4xl mx-auto space-y-6">
         {/* Header */}
         <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
